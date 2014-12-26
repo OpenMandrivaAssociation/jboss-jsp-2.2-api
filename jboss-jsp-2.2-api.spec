@@ -4,9 +4,9 @@
 
 Name:             jboss-jsp-2.2-api
 Version:          1.0.1
-Release:          7.0%{?dist}
+Release:          9.1
 Summary:          JavaServer(TM) Pages 2.2 API
-
+Group:            Development/Java
 License:          CDDL or GPLv2 with exceptions
 URL:              http://www.jboss.org/
 
@@ -47,33 +47,15 @@ This package contains the API documentation for %{name}.
 %setup -q -n %{name}-%{namedversion}
 
 %build
-mvn-rpmbuild install javadoc:aggregate
+%mvn_build
 
 %install
-install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
-install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
-install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+%mvn_install
 
-# JAR
-install -pm 644 target/jboss-jsp-api_2.2_spec-%{namedversion}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
-
-# POM
-install -pm 644 pom.xml $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
-
-# DEPMAP
-%add_maven_depmap JPP-%{name}.pom %{name}.jar -a "javax.servlet.jsp:jsp-api"
-
-# APIDOCS
-cp -rp target/site/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
-
-%files
-%{_javadir}/%{name}.jar
-%{_mavenpomdir}/*
-%{_mavendepmapfragdir}/*
+%files -f .mfiles
 %doc LICENSE README
 
-%files javadoc
-%{_javadocdir}/%{name}
+%files javadoc -f .mfiles-javadoc
 %doc LICENSE README
 
 %changelog
