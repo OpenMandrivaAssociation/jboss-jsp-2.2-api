@@ -4,7 +4,7 @@
 
 Name:             jboss-jsp-2.2-api
 Version:          1.0.1
-Release:          9.1
+Release:          10.1
 Summary:          JavaServer(TM) Pages 2.2 API
 Group:            Development/Java
 License:          CDDL or GPLv2 with exceptions
@@ -50,13 +50,29 @@ This package contains the API documentation for %{name}.
 %mvn_build
 
 %install
-%mvn_install
+install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
+install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
+install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+
+# JAR
+install -pm 644 target/jboss-jsp-api_2.2_spec-%{namedversion}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+
+# POM
+install -pm 644 pom.xml $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
+
+# DEPMAP
+%add_maven_depmap JPP-%{name}.pom %{name}.jar -a "javax.servlet.jsp:jsp-api"
+
+# APIDOCS
+cp -rp target/site/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+
 
 %files -f .mfiles
 %doc LICENSE README
 
-%files javadoc -f .mfiles-javadoc
+%files javadoc
 %doc LICENSE README
+%{_javadocdir}/%{name}
 
 %changelog
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-7
