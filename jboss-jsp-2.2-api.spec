@@ -4,7 +4,7 @@
 
 Name:             jboss-jsp-2.2-api
 Version:          1.0.1
-Release:          10.2
+Release:          10.3
 Summary:          JavaServer(TM) Pages 2.2 API
 Group:            Development/Java
 License:          CDDL or GPLv2 with exceptions
