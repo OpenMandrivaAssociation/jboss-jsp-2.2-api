@@ -8,7 +8,7 @@ Release:          10.3
 Summary:          JavaServer(TM) Pages 2.2 API
 Group:            Development/Java
 License:          CDDL or GPLv2 with exceptions
-URL:              http://www.jboss.org/
+URL:              https://www.jboss.org/
 
 # git clone git://github.com/jboss/jboss-jsp-api_spec.git jboss-jsp-2.2-api
 # cd jboss-jsp-2.2-api/ && git archive --format=tar --prefix=jboss-jsp-2.2-api-1.0.1.Final/ jboss-jsp-api_2.2_spec-1.0.1.Final | xz > jboss-jsp-2.2-api-1.0.1.Final.tar.xz
